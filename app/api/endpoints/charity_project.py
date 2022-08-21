@@ -29,6 +29,11 @@ async def create_new_charity_project(
         charity_project: CharityProjectCreate,
         session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Создает новый благотворительный проект.
+
+    Доступно только для суперюзеров.
+    """
     await check_name_duplicate(charity_project.name, session)
     new_project = await charity_project_crud.create(charity_project, session)
     new_project = await invest_all_free_donations(new_project, session)
@@ -43,6 +48,11 @@ async def create_new_charity_project(
 async def get_all_charity_projects(
         session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Возваращает список всех открытых благотвортельных проектов.
+
+    Доступно для всех.
+    """
     all_projects = await charity_project_crud.get_multi(session)
     return all_projects
 
@@ -57,6 +67,11 @@ async def partially_update_charity_project(
         obj_in: CharityProjectUpdate,
         session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Изменяет благотворительный проект.
+
+    Доступно только для суперюзеров.
+    """
     project = await check_charity_project_exists(
         project_id, session
     )
@@ -84,6 +99,11 @@ async def remove_charity_project(
         project_id: int,
         session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Удаляет благотоворительный проект.
+
+    Доступно только для суперюзеров.
+    """
     project = await check_charity_project_exists(
         project_id, session
     )

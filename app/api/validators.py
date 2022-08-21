@@ -3,7 +3,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.charity_project import charity_project_crud
 from app.models import CharityProject
-# Ради статус-кодов устанавливать весь джанго мне показалось избыточным
 from app.misc import status
 
 

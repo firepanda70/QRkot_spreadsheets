@@ -25,6 +25,11 @@ async def donate(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user),
 ):
+    """
+    Отправка нового прожертвования.
+
+    Доступно только для авторизованных пользователей.
+    """
     new_donation = await donation_crud.create(
         donation, session, user
     )
@@ -41,6 +46,11 @@ async def donate(
 async def get_all_donations(
         session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Возвращает список всех пожертвований.
+
+    Доступно только для суперюзеров.
+    """
     donations = await donation_crud.get_multi(session)
     return donations
 
@@ -53,5 +63,10 @@ async def get_user_donations(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user),
 ):
+    """
+    Возвращает список всех собственных пожертвований.
+
+    Доступно только для авторизованных пользователей.
+    """
     donations = await donation_crud.get_by_user(user, session)
     return donations

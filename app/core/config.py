@@ -5,7 +5,7 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     app_title: str = 'Благотворительный фонд поддержки котиков'
-    app_description: str = 'Сбор пожертвований на котодела'
+    app_description: str = 'Сбор пожертвований на котодела.'
     database_url: str = 'sqlite+aiosqlite:///./fastapi.db'
     secret: str = 'SECRET'
     email: Optional[str] = None

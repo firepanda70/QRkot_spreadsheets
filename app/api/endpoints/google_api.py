@@ -21,6 +21,14 @@ async def get_report(
     session: db.AsyncSession = Depends(db.get_async_session),
     wrapper_service: Aiogoogle = Depends(get_service),
 ) -> Dict[str, str]:
+    """
+    Создает Google-таблицу с отчетом о закрытых проектах,
+    отсортированных в порядке скорости их закрытия, и
+    возвращат на него ссылку.
+    Колонки: Название проекта, Скорость закрытия, Описание проекта.
+
+    Доступно только для суперюзеров.
+    """
     projects = await charity_project_crud.get_projects_by_completion_rate(
         session
     )
